@@ -18,7 +18,7 @@ Remove all wishtender images in a folder
 
 options:
   -h, --help            show this help message and exit
-  -p PATH, --path PATH  Path to store downloaded images
+  -p PATH, --path PATH  Path to the folder in which to find wishtender images
   -d, --delete          Delete found wishtender images
   -t THREADS, --threads THREADS
                         Maximum amount of running threads
