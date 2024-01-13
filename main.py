@@ -55,15 +55,20 @@ def stop_program(signum, frame, img_queue):
     print("Done")
     exit(0)
 
-def get_files(path:str):
-    img_queue = queue.Queue()
+def get_files(path:str, recursive=False):
+    images = []
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
     
         # Check if it's a file (not a directory)
         if is_image(file_path, filename):
-            img_queue.put([file_path, filename])
-    return img_queue
+            images.append([file_path, filename])
+        if recursive:
+            if os.isdir(file_path):
+                more_images = get_files(file_path, recursive=recursive)
+                for img in more_images:
+                    images.append(img)
+    return images
 
 def delete_img(img):
     try:
@@ -97,16 +102,21 @@ def classify_manager(img_queue:queue, delete=False):
 
 def main():
     parser = argparse.ArgumentParser(prog='Wishtender-Remover', description='Remove all wishtender images in a folder', epilog='https://github.com/vanishedbydefa')
-    parser.add_argument('-p', '--path', default=str(os.getcwd()), type=str, help='Path to store downloaded images')
+    parser.add_argument('-p', '--path', default=str(os.getcwd()), type=str, help='Path to the folder in which to find wishtender images')
     parser.add_argument('-d', '--delete', action='store_true', help='Delete found wishtender images')
     parser.add_argument('-t', '--threads', default=4, type=int, help='Maximum amount of running threads')
+    parser.add_argument('-r', '--recursive', action='store_true', help='Also search for wishtender images in sub-folders')
 
     args = parser.parse_args()
     param_path = args.path
     param_delete = args.delete
     param_threads = args.threads
+    param_recursive = args.recursive
 
-    img_queue = get_files(param_path)
+    img_queue = queue.Queue()
+    images = get_files(param_path,param_recursive)
+    for img in images:
+        img_queue.put(img)
 
     while not STOP_THREADS:
         # Thread logic
