@@ -64,7 +64,7 @@ def get_files(path:str, recursive=False):
         if is_image(file_path, filename):
             images.append([file_path, filename])
         if recursive:
-            if os.isdir(file_path):
+            if os.path.isdir(file_path):
                 more_images = get_files(file_path, recursive=recursive)
                 for img in more_images:
                     images.append(img)
