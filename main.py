@@ -96,7 +96,7 @@ def classify_manager(img_queue:queue, delete=False):
     threads_semaphore.release()
 
 def main():
-    parser = argparse.ArgumentParser(prog='Faproulette-Downloader', description='Download all faproulettes on faproulette.co', epilog='https://github.com/vanishedbydefa')
+    parser = argparse.ArgumentParser(prog='Wishtender-Remover', description='Remove all wishtender images in a folder', epilog='https://github.com/vanishedbydefa')
     parser.add_argument('-p', '--path', default=str(os.getcwd()), type=str, help='Path to store downloaded images')
     parser.add_argument('-d', '--delete', action='store_true', help='Delete found wishtender images')
     parser.add_argument('-t', '--threads', default=4, type=int, help='Maximum amount of running threads')
