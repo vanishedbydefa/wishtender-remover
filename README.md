@@ -1,5 +1,5 @@
 # Usage
-Make sure to use a version of python <=3.11
+Make sure to use a version of python <=3.11. In case you have multiple versions installed, use the full path to the python executable <=3.11 e.x `C:\Users\exampleuser\folder1\folder2\Programs\Python\Python311\python.exe`
 
 1. Open a commandline
 2. Clone the repository `git clone https://github.com/vanishedbydefa/wishtender-remover.git`
